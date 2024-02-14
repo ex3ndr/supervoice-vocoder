@@ -16,6 +16,10 @@ This repository contains easy to use SOTA vocoder that is uses BigVSAN original 
   * Power: `1.0` aka amplitude spectogram
   * Center: `true`
   * Padding: `reflect`
+
+## Evaluation
+
+To evaluate model you can use [evaluation notebook](/eval.ipynb) which can run anywhere where `torch` and `torchaudio` are installed.
  
 ## How to use
 
@@ -33,8 +37,6 @@ spec = torch.randn(100, 1234)
 audio = model.generate(spec)
 
 ```
-
-## References
 
 ## License
 
