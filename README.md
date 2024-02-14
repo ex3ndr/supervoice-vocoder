@@ -1,8 +1,8 @@
 # ✨ SuperVoice Vocoder
-SOTA vocoder for speech synthesis.
+Easy to use SOTA vocoder for speech synthesis from Mel Spectograms.
 
 ## Description
-This repository contains easy to use SOTA vocoder that is uses BigVSAN official pre-trained weights. This model is tailored to a specific Mel-Spectogram parameters which is most common for voice synthesis tasks.
+This repository contains easy to use SOTA vocoder that is uses BigVSAN official pre-trained weights with removed weight normalization. This model is tailored to a specific Mel-Spectogram parameters which is most common for voice synthesis tasks.
 
 * Model: [BigVSAN](https://arxiv.org/abs/2309.02836)
 * Sample rate: 24000 Hz
@@ -17,9 +17,22 @@ This repository contains easy to use SOTA vocoder that is uses BigVSAN official 
   * Center: `true`
   * Padding: `reflect`
  
-## Install
+## How to use
 
-TODO
+This model is available using Torch Hub:
+
+```python
+
+# Load model
+bigvsan = torch.hub.load(repo_or_dir='ex3ndr/supervoice-vocoder', model='bigvsan')
+
+# Source mel spectogram
+spec = torch.randn(100, 1234)
+
+# Synthesized audio
+audio = model.generate(spec)
+
+```
 
 ## References
 
