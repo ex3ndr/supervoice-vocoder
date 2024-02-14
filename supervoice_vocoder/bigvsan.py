@@ -64,6 +64,15 @@ class BigVSAN(torch.nn.Module):
 
         self.conv_post = Conv1d(ch, 1, 7, 1, padding=3)
 
+    def generate(self, mel):
+        has_batch = len(mel.shape) == 3
+        if not has_batch:
+            mel = mel.unsqueeze(0)
+        with torch.no_grad():
+            synthesized = self(mel)
+        if not has_batch:
+            synthesized = synthesized.squeeze(0)
+        return synthesized
 
     def forward(self, x):
         # pre conv
