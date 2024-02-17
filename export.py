@@ -70,3 +70,19 @@ torchaudio.save('resynth.wav', resynth, 24000)
 
 # Export the model
 torch.save(model.state_dict(), 'bigvsan_no_norm.pt')
+
+# Export to ONNX
+class ONNXWrapper(torch.nn.Module):
+    def __init__(self, model):
+        super().__init__()
+        self.model = model
+    def forward(self, x):
+        return self.model(x.unsqueeze(0)).squeeze(0)
+export_options = torch.onnx.ExportOptions(dynamic_shapes = True)
+dummy = torch.rand(100, 500)
+onnx_output = torch.onnx.dynamo_export(
+    ONNXWrapper(model), 
+    dummy, 
+    export_options=export_options
+)
+onnx_output.save('bigvsan.onnx')
